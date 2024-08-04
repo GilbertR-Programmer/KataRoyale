@@ -14,7 +14,7 @@ public class TestDBConnection {
 
     @Test
     public void addCompetitorTest(){
-        Competitor competitor = new Competitor("john2", true, 100, 100, 0);
+        Competitor competitor = new Competitor("BobbyGrean", true, 590, 200, 0);
         competitorRepository.save(competitor);
     }
 

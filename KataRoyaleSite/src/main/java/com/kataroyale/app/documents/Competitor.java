@@ -16,4 +16,5 @@ public class Competitor {
     private Integer honorInBattle;
     private Integer honorOnLastReset;
     private Integer totalWins;
+    private Integer totalHonor;
 }

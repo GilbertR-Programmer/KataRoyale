@@ -16,14 +16,19 @@ public class CodeWarsService {
     }
 
     public Competitor getCodeWarsUser(String username) {
-        Mono<CompetitorDTO> competitorUserDetails = webClient
+        CompetitorDTO competitorUserDetails = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/users/{user}")
                         .build(username))
                 .retrieve()
-                .bodyToMono(CompetitorDTO.class);
+                .bodyToMono(CompetitorDTO.class)
+                .block();
 
-        return new Competitor();
+        Competitor returnCompetitor = new Competitor();
+        returnCompetitor.setUserName(competitorUserDetails.getUsername());
+        returnCompetitor.setTotalHonor(competitorUserDetails.getHonor());
+
+        return returnCompetitor;
     }
 
 }
