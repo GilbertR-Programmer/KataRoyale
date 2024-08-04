@@ -1,5 +1,6 @@
 package com.kataroyale.app.services;
 
+import com.kataroyale.app.documents.Competitor;
 import com.kataroyale.app.models.dtos.CompetitorDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -25,7 +26,4 @@ public class CodeWarsService {
         return new Competitor();
     }
 
-    public class Competitor {
-
-    }
 }
