@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kata Royale</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basicTestCss.css}">
+</head>
+<body>
+
+<h1>Welcome</h1>
+<h2>current scores!</h2>
+<section th:each="competitor : ${competitors}">
+    <p th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
+</section>
+<section>
+    <h1>Join The Next Battle!</h1>
+    <form th:action="@{/competitors}" method="post">
+        <label for="userName">Enter your Code Wars username:</label>
+        <input type="text" id="userName" name="userName" placeholder="Enter your username">
+        <input type="submit" value="Join Battle">
+    </form>
+</section>
+
+</body>
+</html>

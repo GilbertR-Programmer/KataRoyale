@@ -1,5 +1,6 @@
 package com.kataroyale.app.services;
 
+import com.kataroyale.app.documents.Competitor;
 import com.kataroyale.app.models.dtos.CompetitorDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,17 +16,30 @@ public class CodeWarsService {
     }
 
     public Competitor getCodeWarsUser(String username) {
-        Mono<CompetitorDTO> competitorUserDetails = webClient
+        CompetitorDTO competitorUserDetails = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/users/{user}")
                         .build(username))
                 .retrieve()
-                .bodyToMono(CompetitorDTO.class);
+                .bodyToMono(CompetitorDTO.class)
+                .block();
 
-        return new Competitor();
+        Competitor returnCompetitor = new Competitor(competitorUserDetails.getUsername(),
+                false,
+                0,
+                0,
+                0,
+                competitorUserDetails.getHonor());
+
+        return returnCompetitor;
     }
 
-    public class Competitor {
+    public Competitor getCodeWarsUser(Competitor competitor) {
+        Competitor codeWarsCompetitor = getCodeWarsUser(competitor.getUserName());
 
+        competitor.setTotalHonor(codeWarsCompetitor.getTotalHonor());
+
+        return competitor;
     }
+
 }

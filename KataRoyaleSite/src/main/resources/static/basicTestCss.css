@@ -1,0 +1,50 @@
+/* Basic test CSS */
+
+body {
+    background-color: #1a1a1a; /* Dark background for the night on the sea */
+    color: #f0e68c; /* Light golden text color */
+    font-family: 'Pirata One', cursive; /* Pirate-themed font */
+    background-image: url('https://www.example.com/pirate-background.jpg'); /* Add a pirate-themed background image */
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    text-align: center;
+    text-shadow: 2px 2px #000; /* Shadow for text depth */
+}
+
+h1 {
+    font-size: 3em;
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+section {
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
+    border: 2px solid #f0e68c; /* Golden border */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px #000; /* Shadow for depth */
+}
+
+p {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+a {
+    color: #f0e68c;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff4500; /* Bright orange on hover */
+}
