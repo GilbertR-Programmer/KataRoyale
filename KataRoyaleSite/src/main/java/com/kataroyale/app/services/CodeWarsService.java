@@ -24,11 +24,22 @@ public class CodeWarsService {
                 .bodyToMono(CompetitorDTO.class)
                 .block();
 
-        Competitor returnCompetitor = new Competitor();
-        returnCompetitor.setUserName(competitorUserDetails.getUsername());
-        returnCompetitor.setTotalHonor(competitorUserDetails.getHonor());
+        Competitor returnCompetitor = new Competitor(competitorUserDetails.getUsername(),
+                false,
+                0,
+                0,
+                0,
+                competitorUserDetails.getHonor());
 
         return returnCompetitor;
+    }
+
+    public Competitor getCodeWarsUser(Competitor competitor) {
+        Competitor codeWarsCompetitor = getCodeWarsUser(competitor.getUserName());
+
+        competitor.setTotalHonor(codeWarsCompetitor.getTotalHonor());
+
+        return competitor;
     }
 
 }

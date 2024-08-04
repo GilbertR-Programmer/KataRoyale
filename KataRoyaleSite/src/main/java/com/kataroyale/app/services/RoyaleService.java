@@ -25,8 +25,45 @@ public class RoyaleService {
     }
 
     public void addCompetitor(String competitorUserName) {
-        Competitor competitor = codeWarsService.getCodeWarsUser(competitorUserName);
-        competitor.setHonorOnLastReset(competitor.getTotalHonor());
-        competitorRepository.save(competitor);
+        if(getCompetitors().noneMatch(competitor -> competitor.getUserName().equals(competitorUserName))){
+            Competitor competitor = codeWarsService.getCodeWarsUser(competitorUserName);
+            competitor.setHonorOnLastReset(competitor.getTotalHonor());
+            competitorRepository.save(competitor);
+        }
+    }
+
+    public void updateCompetitors(){
+        getCompetitors()
+                .filter(Competitor::getIsCompeting)
+                .map(
+                        competitor -> {
+                            competitor = codeWarsService.getCodeWarsUser(competitor);
+                            competitor.setHonorInBattle(competitor.getTotalHonor() - competitor.getHonorOnLastReset());
+                            return competitor;
+                        }
+                )
+                .forEach(competitorRepository::save);
+    }
+
+    public void resetCompetitors() {
+        getCompetitors()
+                .map(
+                        competitor -> {
+                            competitor = codeWarsService.getCodeWarsUser(competitor.getUserName());
+                            competitor.setHonorOnLastReset(competitor.getTotalHonor());
+                            competitor.setIsCompeting(true);
+                            return competitor;
+                        }
+                )
+                .forEach(competitorRepository::save);
+    }
+
+    public void cutCompetitors(Integer amountCut) {
+        getCompetitors()
+                .filter(Competitor::getIsCompeting)
+                .sorted(Comparator.comparingInt(Competitor::getHonorInBattle))
+                .limit(amountCut)
+                .peek(competitor -> competitor.setIsCompeting(false))
+                .forEach(competitorRepository::save);
     }
 }
