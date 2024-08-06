@@ -3,6 +3,7 @@ package com.kataroyale.app.services;
 import com.kataroyale.app.documents.Competitor;
 import com.kataroyale.app.repositories.CompetitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -65,5 +66,9 @@ public class RoyaleService {
                 .limit(amountCut)
                 .peek(competitor -> competitor.setIsCompeting(false))
                 .forEach(competitorRepository::save);
+    }
+
+    //TODO: Add code to cut every other competitor bar one
+    public void pickWinner() {
     }
 }
