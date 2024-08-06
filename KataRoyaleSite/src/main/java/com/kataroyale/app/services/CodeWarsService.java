@@ -4,6 +4,7 @@ import com.kataroyale.app.documents.Competitor;
 import com.kataroyale.app.models.dtos.CompetitorDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientException;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -15,7 +16,7 @@ public class CodeWarsService {
         this.webClient = webClientBuilder.baseUrl(API_BASE_URL).build();
     }
 
-    public Competitor getCodeWarsUser(String username) {
+    public Competitor getCodeWarsUser(String username) throws WebClientException {
         CompetitorDTO competitorUserDetails = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/users/{user}")

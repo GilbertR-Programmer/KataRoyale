@@ -9,8 +9,12 @@
 
 <h1>Welcome</h1>
 <h2>current scores!</h2>
-<section th:each="competitor : ${competitors}">
-    <p th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
+<section th:each="competitor : ${competitors}" th:if="${competitor.getIsCompeting()}">
+    <p th:if="${competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
+
+</section>
+<section id="failedCompetitors" th:each="competitor : ${competitors}" th:if="${!competitor.getIsCompeting()}">
+    <p th:if="${!competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' is out with a score of ' + ${competitor.getHonorInBattle()}"></p>
 </section>
 <section>
     <h1>Join The Next Battle!</h1>
