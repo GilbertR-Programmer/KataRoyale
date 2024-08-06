@@ -68,7 +68,16 @@ public class RoyaleService {
                 .forEach(competitorRepository::save);
     }
 
-    //TODO: Add code to cut every other competitor bar one
+    public void keepCompetitors(Integer amountKept) {
+        getCompetitors()
+                .skip(amountKept)
+                .filter(Competitor::getIsCompeting)
+                .peek(competitor -> competitor.setIsCompeting(false))
+                .forEach(competitorRepository::save);
+    }
+
+
     public void pickWinner() {
+        keepCompetitors(1);
     }
 }
