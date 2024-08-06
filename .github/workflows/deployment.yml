@@ -1,0 +1,42 @@
+name: deploy
+
+on:
+  push:
+    branches: [ "Developer" ]
+  pull_request:
+    branches: [ "Developer" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file KataRoyaleSite/pom.xml -Dspring.profiles.active=ci -Dmaven.test.failure.ignore=true
+
+      env:
+        DB_URL: ${{ secrets.DB_URL }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Build Docker images
+      run: docker build -t <username>/kataRoyale:latest -t <username>/kataRoyale:${{ github.sha }} .
+
+    - name: Push Docker images
+      run: |
+        docker push <username>/kataRoyale:latest
+        docker push <username>/kataRoyale:${{ github.sha }} 
+
+    - name: Trigger Render Deploy Hook
+      run: |
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
