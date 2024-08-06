@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
 @SpringBootTest
 public class TestDBConnection {
 
@@ -26,5 +29,6 @@ public class TestDBConnection {
     @Test
     public void findAllByTest(){
         System.out.println(competitorRepository.findAllBy().toList());
+        Optional<String> boy =Optional.of("boy");
     }
 }
