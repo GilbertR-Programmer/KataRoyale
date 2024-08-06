@@ -29,6 +29,5 @@ public class TestDBConnection {
     @Test
     public void findAllByTest(){
         System.out.println(competitorRepository.findAllBy().toList());
-        Optional<String> boy =Optional.of("boy");
     }
 }
