@@ -2,6 +2,7 @@ package com.kataroyale.app;
 
 import com.kataroyale.app.documents.Competitor;
 import com.kataroyale.app.repositories.CompetitorRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +15,12 @@ public class TestDBConnection {
 
     @Test
     public void addCompetitorTest(){
-        Competitor competitor = new Competitor("BobbyGrean", true, 590, 200, 0);
+        long amount = competitorRepository.findAllBy().count();
+        Competitor competitor = new Competitor(String.valueOf(Math.random() * Math.random()), true, (int) (Math.random() * 590), (int) (Math.random() * 200), 0,0);
         competitorRepository.save(competitor);
+
+        long newAmount = competitorRepository.findAllBy().count();
+        Assertions.assertEquals(amount+1, newAmount);
     }
 
     @Test
