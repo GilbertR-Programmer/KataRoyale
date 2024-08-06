@@ -40,9 +40,15 @@ public class RoyaleViewController {
         service.updateCompetitors();
     }
 
+    //midnight every monday to thursday
+    @Scheduled(cron = "0 0 * * 1-4")
+    public void dailyCut() {
+        service.cutFifthOfCompetitors();
+    }
+
     //midnight every saturday
-    @Scheduled(cron = "0 0 * * 6")
-    public void determineWinnerSat() {
+    @Scheduled(cron = "0 0 * * 5")
+    public void determineWinnerFri() {
         service.pickWinner();
     }
 

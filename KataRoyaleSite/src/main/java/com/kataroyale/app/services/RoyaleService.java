@@ -76,8 +76,14 @@ public class RoyaleService {
                 .forEach(competitorRepository::save);
     }
 
-
     public void pickWinner() {
         keepCompetitors(1);
+    }
+
+    public void cutFifthOfCompetitors() {
+        long amountToCut = getCompetitors()
+                .filter(Competitor::getIsCompeting)
+                .count()/5;
+        cutCompetitors((int) amountToCut);
     }
 }
