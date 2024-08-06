@@ -1,5 +1,5 @@
 # Use the official Maven image as a parent image
-FROM maven:3.8.5-openjdk-11
+FROM maven:3.8.5-openjdk-11 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -11,8 +11,14 @@ COPY src ./src
 # Package the application using Maven
 RUN mvn clean package
 
-# Copy the packaged jar file into the final image
-COPY target/KataRoyaleSite-1.0-SNAPSHOT.jar /app/KataRoyaleSite.jar
+# Use a smaller base image for the runtime
+FROM openjdk:11-jre-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the JAR file from the build stage
+COPY --from=build /app/target/KataRoyaleSite-1.0-SNAPSHOT.jar /app/KataRoyaleSite.jar
 
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "/app/KataRoyaleSite.jar"]
