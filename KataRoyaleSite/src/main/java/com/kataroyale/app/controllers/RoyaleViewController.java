@@ -34,9 +34,9 @@ public class RoyaleViewController {
 
     //minute - hour - day of month - month - day of week
 
-    //midnight+midday every monday to friday
-    @Scheduled(cron = "0 0,12 * * 1-5")
-    public void biDailyUpdate() {
+    //every ten minutes every monday to friday
+    @Scheduled(cron = "*/10 * * * 1-5")
+    public void timedUpdate() {
         service.updateCompetitors();
     }
 
@@ -48,7 +48,7 @@ public class RoyaleViewController {
 
     //midnight every friday
     @Scheduled(cron = "0 0 * * 5")
-    public void determineWinnerFri() {
+    public void determineWinner() {
         service.pickWinner();
     }
 
