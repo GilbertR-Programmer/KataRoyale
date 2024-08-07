@@ -34,6 +34,7 @@ section {
     margin: 20px;
     box-shadow: 0 0 10px #000; /* Shadow for depth */
 }
+
 #failedCompetitors {
     background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
     border: 2px solid #ea0f0f; /* Red failure border */

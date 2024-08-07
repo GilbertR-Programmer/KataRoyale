@@ -8,15 +8,8 @@
 <body>
 
 <h1>Welcome</h1>
-<h2>current scores!</h2>
-<h2>Updates Daily, Winner on Friday, Reset on Sunday</h2>
-<section th:each="competitor : ${competitors}" th:if="${competitor.getIsCompeting()}">
-    <p th:if="${competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
+<h2>Updates Daily!, Winner on Friday!, Reset on Sunday!</h2>
 
-</section>
-<section id="failedCompetitors" th:each="competitor : ${competitors}" th:if="${!competitor.getIsCompeting()}">
-    <p th:if="${!competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' is out with a score of ' + ${competitor.getHonorInBattle()}"></p>
-</section>
 <section>
     <h1>Join The Next Battle!</h1>
     <form th:action="@{/competitors}" method="post">
@@ -24,6 +17,21 @@
         <input type="text" id="userName" name="userName" placeholder="Enter your username">
         <input type="submit" value="Join Battle">
     </form>
+</section>
+
+<section>
+        <a href="https://www.codewars.com/dashboard">
+            <h1>To Battle!</h1>
+        </a>
+</section>
+
+<h2>current scores!</h2>
+<section th:each="competitor : ${competitors}" th:if="${competitor.getIsCompeting()}">
+    <p th:if="${competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
+
+</section>
+<section id="failedCompetitors" th:each="competitor : ${competitors}" th:if="${!competitor.getIsCompeting()}">
+    <p th:if="${!competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' is out with a score of ' + ${competitor.getHonorInBattle()}"></p>
 </section>
 
 </body>
