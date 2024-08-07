@@ -3,7 +3,7 @@
 body {
     background-color: #1a1a1a; /* Dark background for the night on the sea */
     color: #f0e68c; /* Light golden text color */
-    font-family: 'Pirata One', cursive; /* Pirate-themed font */
+    font-family: 'Arial', sans-serif;
     background-image: url('https://www.example.com/pirate-background.jpg'); /* Add a pirate-themed background image */
     background-size: cover;
     background-attachment: fixed;
