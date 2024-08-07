@@ -21,6 +21,7 @@ public class RoyaleViewController {
 
     @GetMapping("/")
     public String viewRoyale(Model model) {
+        biDailyUpdate();
         model.addAttribute("competitors", service.getCompetitors().toArray());
         return "home";
     }

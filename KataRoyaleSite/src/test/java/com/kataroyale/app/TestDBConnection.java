@@ -2,6 +2,7 @@ package com.kataroyale.app;
 
 import com.kataroyale.app.documents.Competitor;
 import com.kataroyale.app.repositories.CompetitorRepository;
+import com.kataroyale.app.services.RoyaleService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class TestDBConnection {
     @Autowired
     CompetitorRepository competitorRepository;
 
+    @Autowired
+    RoyaleService service;
+
     @Test
     public void addCompetitorTest(){
         long amount = competitorRepository.findAllBy().count();
@@ -29,5 +33,10 @@ public class TestDBConnection {
     @Test
     public void findAllByTest(){
         System.out.println(competitorRepository.findAllBy().toList());
+    }
+
+    @Test
+    public void forceReset(){
+        service.resetCompetitors();
     }
 }
