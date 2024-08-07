@@ -25,7 +25,6 @@ public class RoyaleViewController {
 
     @GetMapping("/")
     public String viewRoyale(Model model) {
-        //biDailyUpdate();
         logger.info("Viewing Royale");
         model.addAttribute("competitors", service.getCompetitors().toArray());
         return "home";
@@ -36,35 +35,5 @@ public class RoyaleViewController {
         logger.info("posting user: {}", userName);
         service.addCompetitor(userName);
         return "redirect:/";
-    }
-
-    //minute - hour - day of month - month - day of week
-
-    //every three minutes every monday to friday
-    @Scheduled(cron = "*/3 * * * 1-5")
-    public void timedUpdate() {
-        logger.info("performing timed update");
-        service.updateCompetitors();
-    }
-
-    //midnight every monday to thursday
-    @Scheduled(cron = "0 0 * * 1-4")
-    public void dailyCut() {
-        logger.info("performing daily cut");
-        service.cutFifthOfCompetitors();
-    }
-
-    //midnight every friday
-    @Scheduled(cron = "0 0 * * 5")
-    public void determineWinner() {
-        logger.info("performing determine winner");
-        service.pickWinner();
-    }
-
-    //midnight every sunday
-    @Scheduled(cron = "0 0 * * 6")
-    public void resetCompetitors() {
-        logger.info("performing reset competitors");
-        service.resetCompetitors();
     }
 }
