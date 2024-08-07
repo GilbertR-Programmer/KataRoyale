@@ -40,8 +40,8 @@ public class RoyaleViewController {
 
     //minute - hour - day of month - month - day of week
 
-    //every ten minutes every monday to friday
-    @Scheduled(cron = "*/10 * * * 1-5")
+    //every three minutes every monday to friday
+    @Scheduled(cron = "*/3 * * * 1-5")
     public void timedUpdate() {
         logger.info("performing timed update");
         service.updateCompetitors();
