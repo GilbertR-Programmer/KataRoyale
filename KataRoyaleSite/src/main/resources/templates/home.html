@@ -9,6 +9,7 @@
 
 <h1>Welcome</h1>
 <h2>current scores!</h2>
+<h2>Updates Daily, Winner on Friday, Reset on Sunday</h2>
 <section th:each="competitor : ${competitors}" th:if="${competitor.getIsCompeting()}">
     <p th:if="${competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
 
