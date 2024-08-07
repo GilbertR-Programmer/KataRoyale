@@ -56,6 +56,6 @@ public class CodeWarsService {
     }
 
     public void resetConnection() {
-        logger.info("Resetting connection to codewars api");
+        logger.info("Resetting connection to codewars api [THIS CURRENTLY DOES NOTHING]");
     }
 }
