@@ -31,6 +31,7 @@ public class RoyaleService {
     }
 
     public void addCompetitor(String competitorUserName) {
+        logger.info("attempting to add competitor: {} to db", competitorUserName);
         try{
             if(getCompetitors().noneMatch(competitor -> competitor.getUserName().equals(competitorUserName))){
                 Competitor competitor = codeWarsService.getCodeWarsUser(competitorUserName);
@@ -44,6 +45,7 @@ public class RoyaleService {
     }
 
     public void updateCompetitors(){
+        logger.info("attempting to update competitors");
         getCompetitors()
                 .filter(Competitor::getIsCompeting)
                 .map(
@@ -57,6 +59,7 @@ public class RoyaleService {
     }
 
     public void resetCompetitors() {
+        logger.info("attempting to reset competitors");
         getCompetitors()
                 .map(
                         competitor -> {
@@ -70,6 +73,7 @@ public class RoyaleService {
     }
 
     public void cutCompetitors(Integer amountCut) {
+        logger.info("attempting to cut {} competitors", amountCut);
         getCompetitors()
                 .filter(Competitor::getIsCompeting)
                 .sorted(Comparator.comparingInt(Competitor::getHonorInBattle))
@@ -79,6 +83,7 @@ public class RoyaleService {
     }
 
     public void keepCompetitors(Integer amountKept) {
+        logger.info("attempting to keep {} competitors", amountKept);
         getCompetitors()
                 .skip(amountKept)
                 .filter(Competitor::getIsCompeting)
@@ -87,10 +92,12 @@ public class RoyaleService {
     }
 
     public void pickWinner() {
+        logger.info("attempting to pick winner");
         keepCompetitors(1);
     }
 
     public void cutFifthOfCompetitors() {
+        logger.info("attempting to cut 1/5 of competitors");
         long amountToCut = getCompetitors()
                 .count()/5;
         cutCompetitors((int) amountToCut);

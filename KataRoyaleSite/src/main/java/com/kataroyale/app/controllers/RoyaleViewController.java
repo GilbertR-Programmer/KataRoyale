@@ -17,6 +17,7 @@ public class RoyaleViewController {
     private final RoyaleService service;
     private final Logger logger = LoggerFactory.getLogger(RoyaleViewController.class);
 
+
     @Autowired
     public RoyaleViewController(RoyaleService service) {
         this.service = service;
