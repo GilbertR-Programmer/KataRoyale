@@ -31,11 +31,12 @@ public class RoyaleService {
     }
 
     public void addCompetitor(String competitorUserName) {
-        logger.info("attempting to add competitor: {} to db", competitorUserName);
+        logger.info("entering addCompetitor");
         try{
             if(getCompetitors().noneMatch(competitor -> competitor.getUserName().equals(competitorUserName))){
                 Competitor competitor = codeWarsService.getCodeWarsUser(competitorUserName);
                 competitor.setHonorOnLastReset(competitor.getTotalHonor());
+                logger.info("attempting to add competitor: {} to db", competitorUserName);
                 competitorRepository.save(competitor);
             }
         }catch (WebClientException e){

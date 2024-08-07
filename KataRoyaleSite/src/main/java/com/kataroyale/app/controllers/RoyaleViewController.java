@@ -30,6 +30,13 @@ public class RoyaleViewController {
         return "home";
     }
 
+    @GetMapping("/super/secret/force/update")
+    public String updateRoyale() {
+        logger.info("Using Super Secret Force Update");
+        service.updateCompetitors();
+        return "redirect:/";
+    }
+
     @PostMapping("/competitors")
     public String joinBattle(@RequestParam String userName) {
         logger.info("posting user: {}", userName);

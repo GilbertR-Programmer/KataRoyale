@@ -20,8 +20,8 @@ public class timeUpdateController {
 
     //second - minute - hour - day of month - month - day of week
 
-    //every fifteen minutes every monday to friday
-    @Scheduled(cron = "0 */15 * * * MON-FRI")
+    //every five minutes every monday to friday
+    @Scheduled(cron = "0 */5 * * * MON-FRI")
     public void timedUpdate() {
         logger.info("performing timed update");
         service.updateCompetitors();
