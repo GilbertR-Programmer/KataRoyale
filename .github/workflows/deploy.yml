@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file FantasticNineWebAndAPI/pom.xml -Dspring.profiles.active=ci -Dmaven.test.failure.ignore=true
+      run: mvn -B package --file KataRoyaleSite/pom.xml -Dspring.profiles.active=ci -Dmaven.test.failure.ignore=true
     
     - name: Trigger Render Deploy Hook
       run: |
