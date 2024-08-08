@@ -1,16 +1,19 @@
 package com.kataroyale.app;
 
 import com.kataroyale.app.documents.Competitor;
+import com.kataroyale.app.documents.Timer;
+import com.kataroyale.app.models.enums.Task;
 import com.kataroyale.app.repositories.CompetitorRepository;
+import com.kataroyale.app.repositories.TimerRepository;
 import com.kataroyale.app.services.RoyaleService;
+import com.kataroyale.app.services.TimerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 public class TestDBConnection {
@@ -19,7 +22,9 @@ public class TestDBConnection {
     CompetitorRepository competitorRepository;
 
     @Autowired
-    RoyaleService service;
+    RoyaleService royaleService;
+    @Autowired
+    TimerRepository timerRepository;
 
     @Test
     public void addCompetitorTest(){
@@ -39,12 +44,23 @@ public class TestDBConnection {
     @Test
     @Disabled
     public void forceReset(){
-        service.resetCompetitors();
+        royaleService.resetCompetitors();
     }
 
     @Test
     @Disabled
     public void forceCut(){
-        service.cutFifthOfCompetitors();
+        royaleService.cutFifthOfCompetitors();
+    }
+
+    @Test
+    @Disabled
+    public void forceAddTimers(){
+        Timer pickWinner =  new Timer(Task.PICK_WINNER.getTaskName(), LocalDateTime.of(2024,8,2,0,0),10080);
+        Timer cutLosers =  new Timer(Task.CUT_LOSERS.getTaskName(), LocalDateTime.of(2024,8,7,0,0),1440);
+        Timer resetCompetitors =  new Timer(Task.RESET_COMPETITORS.getTaskName(), LocalDateTime.of(2024, 8, 4, 0, 0), 10080);
+        timerRepository.save(pickWinner);
+        timerRepository.save(cutLosers);
+        timerRepository.save(resetCompetitors);
     }
 }

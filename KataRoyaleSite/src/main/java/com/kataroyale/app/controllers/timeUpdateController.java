@@ -1,6 +1,8 @@
 package com.kataroyale.app.controllers;
 
+import com.kataroyale.app.models.enums.Task;
 import com.kataroyale.app.services.RoyaleService;
+import com.kataroyale.app.services.TimerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,41 +12,60 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class timeUpdateController {
 
-    private final RoyaleService service;
+    private final RoyaleService royaleService;
+    private final TimerService timerService;
     private final Logger logger = LoggerFactory.getLogger(timeUpdateController.class);
 
     @Autowired
-    public timeUpdateController(RoyaleService service) {
-        this.service = service;
+    public timeUpdateController(RoyaleService service, TimerService timerService) {
+        this.royaleService = service;
+        this.timerService = timerService;
     }
 
     //second - minute - hour - day of month - month - day of week
 
     //every five minutes every monday to friday
     @Scheduled(cron = "0 */5 * * * MON-FRI")
-    public void timedUpdate() {
-        logger.info("performing timed update");
-        service.updateCompetitors();
+    public void timedUpdateWeekdays() {
+        logger.info("performing timed update weekdays");
+        royaleService.updateCompetitors();
+        logger.info("checking if it is time to cut");
+        if(timerService.getNeedsDone(Task.CUT_LOSERS.getTaskName())){
+            dailyCut();
+            timerService.resetTimer(Task.CUT_LOSERS.getTaskName());
+        }
+
     }
 
-    //midnight every monday to thursday
-    @Scheduled(cron = "0 0 0 * * MON-THU")
+    //every five minutes every saturday to sunday
+    @Scheduled(cron = "0 */5 * * * SAT-SUN")
+    public void timedUpdateWeekends() {
+        logger.info("performing timed update for weekends");
+        royaleService.updateCompetitors();
+        logger.info("checking if it is time to pick winner");
+        if(timerService.getNeedsDone(Task.PICK_WINNER.getTaskName())){
+            pickWinner();
+            timerService.resetTimer(Task.PICK_WINNER.getTaskName());
+        }
+        logger.info("checking if it is time to reset competitors");
+        if(timerService.getNeedsDone(Task.RESET_COMPETITORS.getTaskName())){
+            resetCompetitors();
+            timerService.resetTimer(Task.RESET_COMPETITORS.getTaskName());
+        }
+    }
+
     public void dailyCut() {
         logger.info("performing daily cut");
-        service.cutFifthOfCompetitors();
+        royaleService.cutFifthOfCompetitors();
     }
 
-    //midnight every friday
-    @Scheduled(cron = "0 0 0 * * FRI")
-    public void determineWinner() {
+    public void pickWinner() {
         logger.info("performing determine winner");
-        service.pickWinner();
+        royaleService.pickWinner();
     }
 
-    //midnight every sunday
-    @Scheduled(cron = "0 0 0 * * SUN")
     public void resetCompetitors() {
         logger.info("performing reset competitors");
-        service.resetCompetitors();
+        royaleService.resetCompetitors();
     }
 }
