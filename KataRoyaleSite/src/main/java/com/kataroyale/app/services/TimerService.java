@@ -30,6 +30,8 @@ public class TimerService {
         logger.info("Resetting timer : {}", timerName);
         Timer timerToReset = timerRepository.findById(timerName).orElseThrow();
         timerToReset.setTimeDone(LocalDateTime.now());
+        timerToReset.setNameOfTask(timerName);
+        logger.info("Resetting timer : {}", timerToReset);
         timerRepository.save(timerToReset);
     }
 }

@@ -8,19 +8,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class timeUpdateController {
+public class TimeUpdatesController {
 
     private final RoyaleService royaleService;
     private final TimerService timerService;
-    private final Logger logger = LoggerFactory.getLogger(timeUpdateController.class);
+    private final Logger logger = LoggerFactory.getLogger(TimeUpdatesController.class);
 
     @Autowired
-    public timeUpdateController(RoyaleService service, TimerService timerService) {
+    public TimeUpdatesController(RoyaleService service, TimerService timerService) {
         this.royaleService = service;
         this.timerService = timerService;
     }
+
+    @GetMapping("/super/secret/force/update")
+    public String updateRoyale() {
+        logger.info("Using Super Secret Force Update");
+        timedUpdateWeekends();
+        timedUpdateWeekdays();
+        return "redirect:/";
+    }
+
 
     //second - minute - hour - day of month - month - day of week
 

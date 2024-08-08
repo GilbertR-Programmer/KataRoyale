@@ -24,6 +24,8 @@ public class TestDBConnection {
     @Autowired
     RoyaleService royaleService;
     @Autowired
+    TimerService timerService;
+    @Autowired
     TimerRepository timerRepository;
 
     @Test
@@ -62,5 +64,15 @@ public class TestDBConnection {
         timerRepository.save(pickWinner);
         timerRepository.save(cutLosers);
         timerRepository.save(resetCompetitors);
+    }
+
+    @Test
+    public void findAllTimers(){
+        timerRepository.findAllBy().forEach(System.out::println);
+    }
+
+    @Test
+    public void resetTimer(){
+        timerService.resetTimer(Task.CUT_LOSERS.getTaskName());
     }
 }
