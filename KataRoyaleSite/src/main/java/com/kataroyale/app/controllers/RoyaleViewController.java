@@ -14,18 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RoyaleViewController {
 
     private final RoyaleService service;
+    private final TimeUpdatesController timeUpdatesController;
     private final Logger logger = LoggerFactory.getLogger(RoyaleViewController.class);
 
 
     @Autowired
-    public RoyaleViewController(RoyaleService service) {
+    public RoyaleViewController(RoyaleService service, TimeUpdatesController timeUpdatesController) {
         this.service = service;
+        this.timeUpdatesController = timeUpdatesController;
     }
 
     @GetMapping("/")
     public String viewRoyale(Model model) {
         logger.info("Viewing Royale");
         model.addAttribute("competitors", service.getCompetitors().toArray());
+        timeUpdatesController.timedUpdate();
         return "home";
     }
 

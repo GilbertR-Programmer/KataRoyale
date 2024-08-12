@@ -56,11 +56,11 @@ public class TestDBConnection {
     }
 
     @Test
-    @Disabled
+
     public void forceAddTimers(){
-        Timer pickWinner =  new Timer(Task.PICK_WINNER.getTaskName(), LocalDateTime.of(2024,8,2,0,0),10080);
-        Timer cutLosers =  new Timer(Task.CUT_LOSERS.getTaskName(), LocalDateTime.of(2024,8,7,0,0),1440);
-        Timer resetCompetitors =  new Timer(Task.RESET_COMPETITORS.getTaskName(), LocalDateTime.of(2024, 8, 4, 0, 0), 10080);
+        Timer pickWinner =  new Timer(Task.PICK_WINNER.getTaskName(), LocalDateTime.of(2024,8,2,12,0),10080);
+        Timer cutLosers =  new Timer(Task.CUT_LOSERS.getTaskName(), LocalDateTime.now().minusDays(1).withHour(12).withMinute(0),1440);
+        Timer resetCompetitors =  new Timer(Task.RESET_COMPETITORS.getTaskName(), LocalDateTime.of(2024, 8, 4, 12, 0), 10080);
         timerRepository.save(pickWinner);
         timerRepository.save(cutLosers);
         timerRepository.save(resetCompetitors);

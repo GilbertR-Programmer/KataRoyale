@@ -26,6 +26,7 @@ h2 {
     margin-bottom: 20px;
 }
 
+
 section {
     background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
     border: 2px solid #f0e68c; /* Golden border */
@@ -33,6 +34,19 @@ section {
     padding: 20px;
     margin: 20px;
     box-shadow: 0 0 10px #000; /* Shadow for depth */
+}
+
+section {
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for readability */
+    border: 2px solid #f0e68c; /* Golden border */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px #000; /* Shadow for depth */
+}
+
+.specialText {
+
 }
 
 #failedCompetitors {

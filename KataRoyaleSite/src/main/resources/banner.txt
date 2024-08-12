@@ -1,0 +1,7 @@
+K   K   A   TTTTT   A      RRRR   OOO  Y   Y   A   L     EEEEE
+K  K   A A    T    A A     R   R O   O Y   Y  A A  L     E
+K K   A   A   T   A   A    R   R O   O  Y Y  A   A L     E
+KK    AAAAA   T   AAAAA    RRRR  O   O   Y   AAAAA L     EEE
+K K   A   A   T   A   A    R R   O   O   Y   A   A L     E
+K  K  A   A   T   A   A    R  R  O   O   Y   A   A L     E
+K   K A   A   T   A   A    R   R  OOO    Y   A   A LLLLL EEEEE

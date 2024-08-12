@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Kata Royale</title>
@@ -8,21 +8,24 @@
 <body>
 
 <h1>Welcome</h1>
-<h2>Updates Every 5 Minutes!,Cuts Daily, Winner on Friday!, Reset on Sunday!</h2>
-<section>
+<h2>Cuts Daily, Winner on Friday!, Reset on Sunday!</h2>
+<h2>Major Updates at 12:00 GMT</h2>
+
+
+<section class="specialText">
         <a target="_blank" href="https://www.codewars.com/dashboard">
             <h1>To Battle!</h1>
         </a>
 </section>
 <h2>current scores!</h2>
-<section th:each="competitor : ${competitors}" th:if="${competitor.getIsCompeting()}">
+<section th:each="competitor : ${competitors}" th:if="${competitor.getIsCompeting()}" class="specialText">
     <p th:if="${competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' has a score of ' + ${competitor.getHonorInBattle()}"></p>
 </section>
-<section id="failedCompetitors" th:each="competitor : ${competitors}" th:if="${!competitor.getIsCompeting()}">
+<section id="failedCompetitors" th:each="competitor : ${competitors}" th:if="${!competitor.getIsCompeting()}" class="specialText">
     <p th:if="${!competitor.getIsCompeting()}" th:text="${competitor.getUserName()} + ' is out with a score of ' + ${competitor.getHonorInBattle()}"></p>
 </section>
 
-<section>
+<section class="specialText">
     <h1>Join The Next Battle!</h1>
     <form th:action="@{/competitors}" method="post">
         <label for="userName">Enter your Code Wars username:</label>

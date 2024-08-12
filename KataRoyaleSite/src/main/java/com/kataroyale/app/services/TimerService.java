@@ -29,7 +29,7 @@ public class TimerService {
     public void resetTimer(String timerName){
         logger.info("Resetting timer : {}", timerName);
         Timer timerToReset = timerRepository.findById(timerName).orElseThrow();
-        timerToReset.setTimeDone(LocalDateTime.now());
+        timerToReset.setTimeDone(timerToReset.getTimeDone().plusMinutes(timerToReset.getTimeBetweenInMinutes()));
         timerToReset.setNameOfTask(timerName);
         logger.info("Resetting timer : {}", timerToReset);
         timerRepository.save(timerToReset);

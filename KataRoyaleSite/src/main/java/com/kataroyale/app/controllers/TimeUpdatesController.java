@@ -23,22 +23,29 @@ public class TimeUpdatesController {
         this.timerService = timerService;
     }
 
+    //commenting out because this really shouldn't be exposed
+    /*
+    @GetMapping("/super/secret/force/cut")
+    public String cutRoyale() {
+        logger.info("Using Super Secret Force Cut");
+        timedCut();
+        return "redirect:/";
+    }
+
     @GetMapping("/super/secret/force/update")
     public String updateRoyale() {
         logger.info("Using Super Secret Force Update");
-        timedUpdateWeekends();
-        timedUpdateWeekdays();
+        timedUpdate();
         return "redirect:/";
     }
+    */
 
 
     //second - minute - hour - day of month - month - day of week
 
-    //every five minutes every monday to friday
-    @Scheduled(cron = "0 */5 * * * MON-FRI")
-    public void timedUpdateWeekdays() {
-        logger.info("performing timed update weekdays");
-        royaleService.updateCompetitors();
+    //every five minutes every monday to thursday
+    @Scheduled(cron = "0 */5 * * * MON-THU")
+    public void timedCut() {
         logger.info("checking if it is time to cut");
         if(timerService.getNeedsDone(Task.CUT_LOSERS.getTaskName())){
             dailyCut();
@@ -47,10 +54,10 @@ public class TimeUpdatesController {
 
     }
 
-    //every five minutes every saturday to sunday
-    @Scheduled(cron = "0 */5 * * * SAT-SUN")
-    public void timedUpdateWeekends() {
-        logger.info("performing timed update for weekends");
+    //every five minutes
+    @Scheduled(cron = "0 */5 * * * *")
+    public void timedUpdate() {
+        logger.info("performing timed update");
         royaleService.updateCompetitors();
         logger.info("checking if it is time to pick winner");
         if(timerService.getNeedsDone(Task.PICK_WINNER.getTaskName())){
